@@ -70,27 +70,40 @@ p2 = K * [R, t];
 X = rand(4, 5);
 
 % Projection
-x1 = p1 * X;
-x2 = p2 * X;
+x1h = p1 * X;
+x2h = p2 * X;
 
 % Transformation into inhomogeneous coordinate
-x1 = x1 ./ repmat(x1(3, :), [3, 1]);
-x2 = x2 ./ repmat(x2(3, :), [3, 1]);
+x1h = x1h ./ repmat(x1h(3, :), [3, 1]);
+x2h = x2h ./ repmat(x2h(3, :), [3, 1]);
 
-x1 = x1(1:2, :);
-x2 = x2(1:2, :);
+x1 = x1h(1:2, :);
+x2 = x2h(1:2, :);
 
 % Compute essential matrix using 7-point algorithm
 [eMatrix5, num] = fivePoint(x1, x2, K, K);
 
+% Declare a placeholder for reprojection error
+err = zeros(1, num);
 
-% Varification
-disp('The ground truth of essential matrix is:');
-disp(eMatrix);
-disp('The essential matrix computed using 5-point algorithm is:');
+fprintf('%d solutions are extracted using 5-point algorithm:\n', num);
+disp('--------------------------------------------------------------');
 
 % Normalize the last entry of essential matrix and display the results
 for i = 1: num
     eMatrix5{i} = eMatrix5{i} / eMatrix5{i}(3, 3);
+    fprintf('The %s solution is:\n\n', getOrder(i));
     disp(eMatrix5{i});
+    err(i) = sum(diag(x2h' * eMatrix5{i} * x1h));
+    fprintf('The associated reprojection error is %f.\n', err(i));
+    disp('--------------------------------------------------------------');
 end
+
+% Show the ground truth
+fprintf('\nThe ground truth of essential matrix is:\n\n');
+disp(eMatrix);
+
+% Perform cheirality check to determine the true essential matrix
+[E_true, ind] = cheirality(eMatrix5, x1h', x2h', K, K);
+fprintf('\nThe true essential matrix is the %s solution:\n\n', getOrder(ind));
+disp(E_true);
