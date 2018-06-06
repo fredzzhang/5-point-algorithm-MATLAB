@@ -24,5 +24,6 @@ In progress...
 
 ## Reference
 
-	[1] D. Nister, "An efficient solution to the five-point relative pose problem", IEEE Transactions 
-	    on Pattern Analysis and Machine Intelligence, vol. 26, no. 6, pp. 756-770, 2004.
+	[1] D. Nister, "An efficient solution to the five-point relative pose problem", IEEE Transactions on 
+	    Pattern Analysis and Machine Intelligence, vol. 26, no. 6, pp. 756-770, 2004.
+	[2] H. Li and R. Hartley, "Five-Point Motion Estimation Made Easy", 18th International Conference on Pattern Recognition (ICPR'06), 2006.
