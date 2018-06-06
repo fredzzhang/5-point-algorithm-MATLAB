@@ -1,7 +1,23 @@
 # 5-point-algorithm-MATLAB
 
-	- fivePoint.m
-	5-point algorithm implementation in MATLAB
+## Code Structure
 
-	- relativePoseTest
-	test program to verify the 5-point algorithm
+### sevenPoint.m
+5-point algorithm implemented in MATLAB
+
+	Usage: [E, num] = fivePoint(p, q, K1, K2)
+		where:
+			E - essential matrices between the image pair
+			num - the number of solutions returned
+			p - coordinates of matched points in the first image
+			q - coordinates of matched points in the second image
+			K1 - intrinsic matrix of the camera corresponding to the first view
+			K2 - intrinsic matrix for the second view
+			
+Note: To compute fundamental matrix, initialize the intrinsic matrix as an identity 3x3 matrix
+	  
+### test_synth
+Test of 5-point algorithm in MATLAB. The evaluation of results involves the computation of reprojection error and cheirality
+
+### test_epilines
+In progress...
